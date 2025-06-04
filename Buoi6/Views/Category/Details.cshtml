@@ -1,0 +1,56 @@
+﻿@model Buoi6.Models.Category
+
+@{
+    ViewData["Title"] = "Chi tiết danh mục";
+}
+
+<h1>Chi tiết danh mục</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-info">Sửa</a> |
+    <a asp-action="Index" class="btn btn-secondary">Trở lại</a>
+</div>
+
+@if (Model.Products != null && Model.Products.Any())
+{
+    <h3 class="mt-4">Sản phẩm trong danh mục này</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Tên sản phẩm</th>
+                <th>Giá</th>
+                <th>Hình ảnh</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Products)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Price</td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(item.ImageUrl))
+                        {
+                            <img src="@item.ImageUrl" width="100" />
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p class="mt-4">Không có sản phẩm nào trong danh mục này.</p>
+}
